@@ -1,0 +1,382 @@
+http://localhost:8789/customer/Product
+
+{
+    "localDateTime": "2023-01-17T18:12:26.1319319",
+    "details": "invalid uuid Product",
+    "msg": "uri=/customer/product"
+}
+
+
+select * from address; select * from admin; select * from curent_admin_session; select * from customer; select * from current_user_session; select * from product; select * from cart_item; select * from cart_cart_items; select * from order_details;
+
+
+ select * from address; select * from admin; select * from curent_admin_session; select * from customer; select * from current_user_session; select * from product;  select * from cart;  select * from cart_products; select * from cart_item; select * from cart_products;
+ 
+
+
+ 		"name": "aman",
+        "email": "aman@gmail",
+        "mobileNo": "1234567890",
+        "password": "as123",
+        "wallet": "15000",
+        "address": {
+            "houseNo": "5/123",
+            "pincode": "282010",
+            "city": "agra",
+            "state": "UP",
+            "country": "india"
+        }
+
+	
+  "productId": "14",
+  "productName": "jeans",
+  "price": "540",
+  "color": "black",
+  "dimension": "XL",
+  "manufacturer": "Nike",
+  "specification": "male",
+  "quantity": "12",
+  "category" :{
+      "categoryName": "A2"
+  }
+
+{
+        "productName": "sweater",
+        "price": 210.0,
+        "dimension": "SL",
+        "manufacturer": "nike",
+        "specification": "male",
+        "quantity": 15,
+        "category": {
+            "categoryName": "C1"
+        }
+}
+
+
+
+{
+   
+   "cartId": "25",
+    "products": [
+        {
+            "productId": "16",
+            "productName": "jeans",
+            "price": 540.0,
+            "dimension": "XL",
+            "manufacturer": "Nike",
+            "specification": "male",
+            "quantity": 8,
+            "category": {
+                "categoryId": 17,
+                "categoryName": "A2"
+            },
+            "color": "black"
+        }
+    ],
+    "customer": {
+        "customerId": 3,
+        "name": "anshi",
+        "email": "anshi@gmail",
+        "mobileNo": "1122334455",
+        "password": "as123"
+    }
+}
+
+"name": "gaurav",
+        "email": "gaurav@gmail",
+        "mobileNo": "7017672620",
+        "password": "gs123",
+
+
+
+	//    "name": "amit",
+    //     "email": "amit@gmail",
+    //     "mobileNo": "1234567890",
+    //     "password": "as123",
+    //     "address": {
+    //         "houseNo": "5/123",
+    //         "pincode": "282010",
+    //         "city": "agra",
+    //         "state": "UP",
+    //         "country": "india"
+    //     }
+
+
+
+
+
+
+
+before CartItem Table
+
+@Override
+	public Cart addToCart(Integer productId, Integer quantity, String uuid) throws CustomerException, ProductException, CartException {
+		
+		CurrentUserSession currentUserSession = cCustomerSessionRepo.findByUuid(uuid);
+		
+		System.out.println(1);
+		
+		if (currentUserSession==null) {
+			throw new CustomerException("invalid key");
+		}
+
+		Optional<Customer> custumer = customerRepo.findById(currentUserSession.getCCustomerId());
+
+		Optional<Product> optional = productRepo.findById(productId);		
+
+		if (!optional.isPresent()) {
+			throw new ProductException("invalid productId !");
+		}
+
+		Product product = optional.get();
+		Integer totalQuantity = product.getQuantity();
+		
+		if (quantity>totalQuantity) {
+			throw new ProductException("we have only "+product.getQuantity()+"product !");		
+		}
+
+		product.setQuantity(quantity);
+
+		Cart cart = new Cart();
+		cart.getProducts().add(product); 
+		cart.setCustomer(custumer.get());
+		
+		product.setQuantity(totalQuantity-quantity);
+		productRepo.save(product);
+		
+		System.out.println(cart);
+		
+		return cartRepo.save(cart);
+	}
+
+	
+	
+	===============================================================================================================================
+	
+	
+	Cart with cartItem table
+	-----------------------
+	
+	public class Cart {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer cartId;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<CartItem> cartItems = new ArrayList<>();
+
+	@OneToOne(cascade = CascadeType.ALL) 
+	private Customer customer;
+	
+	}
+
+
+	public class CartItem {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer cartItemId;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Product product;
+	
+	}
+	
+	
+	
+	
+	
+	
+	public class CustomerServiceImpl implements CustomerService{
+	
+	
+	@Override
+	public Cart addToCart(Integer productId, Integer quantity, String uuid) throws CustomerException, ProductException, CartException {
+		
+		CurrentUserSession currentUserSession = cCustomerSessionRepo.findByUuid(uuid);
+		
+		System.out.println(1);
+		
+		if (currentUserSession==null) {
+			throw new CustomerException("invalid key");
+		}
+
+		Optional<Customer> custumer = customerRepo.findById(currentUserSession.getCCustomerId());
+
+		Optional<Product> optional = productRepo.findById(productId);		
+
+		if (!optional.isPresent()) {
+			throw new ProductException("invalid productId !");
+		}
+
+		Product product = optional.get();
+		Integer totalQuantity = product.getQuantity();
+		
+		if (quantity>totalQuantity) {
+			throw new ProductException("we have only "+product.getQuantity()+"product !");		
+		}
+
+		product.setQuantity(quantity);
+
+		CartItem cartItem = new CartItem();
+		cartItem.setProduct(product);
+		
+		
+		Cart cart = new Cart();
+	
+		cart.getCartItems().add(cartItem);
+		cart.setCustomer(custumer.get());
+		
+		product.setQuantity(totalQuantity-quantity);
+		productRepo.save(product);
+		
+		System.out.println(cart);
+		
+		return cartRepo.save(cart);
+		
+		
+	
+	}
+
+
+
+
+	
+
+
+	@Override
+	public Cart updateCart(Cart cart, String uuid) throws CartException, CustomerException {
+
+		CurrentUserSession currentUserSession = cCustomerSessionRepo.findByUuid(uuid);
+		
+		if (currentUserSession==null) {
+			throw new CustomerException("invalid key");
+		}
+		
+		Optional<Cart> optional = cartRepo.findById(cart.getCartId());
+		
+		if (!optional.isPresent()) {
+			throw new CartException("invalid cartId !");
+		}
+		
+		return cartRepo.save(cart);
+	}
+}
+
+===================================================================================
+
+
+add to cart without cartitem
+
+CurrentUserSession currentUserSession = cCustomerSessionRepo.findByUuid(uuid);
+		
+		if (currentUserSession!=null) {
+			Optional<Customer> cOptional = customerRepo.findById(currentUserSession.getCCustomerId());
+			Customer customer = cOptional.get();
+			Optional<Product> pOptional = productRepo.findById(productId);
+
+			if (pOptional.isPresent()) {
+				Product product = pOptional.get();
+
+				if (product.getQuantity()>=quantity) {
+					Cart cCart = cartRepo.findByCustomerId(customerId);
+
+					if (cCart!=null) {
+						List<Product> listProducts = cCart.getProducts();
+						boolean flag = false;
+						
+						System.out.println(listProducts);
+						
+							for (Product p : listProducts) {
+								if (p.getProductId()==productId) {
+									cCart.setProductQuantity(cCart.getProductQuantity()+quantity);
+									cartRepo.save(cCart);
+									flag = true;
+									break;
+								}
+							}
+							if (!flag) {
+								cCart.setProductQuantity(cCart.getProductQuantity()+quantity);
+								cCart.getProducts().add(product);
+								cartRepo.save(cCart);
+							}				
+					}
+					else {
+						Cart cart = new Cart();
+						cart.setProductQuantity(quantity);
+						cart.getProducts().add(product); 
+						cart.setCustomer(customer);
+						cartRepo.save(cart);
+					}	
+					product.setQuantity(product.getQuantity()-quantity);
+					productRepo.save(product);
+					return "Product "+product.getProductName()+" added to the Cart !";
+				}
+				
+				else throw new ProductException("we have only "+product.getQuantity()+" product !");
+			}
+			else throw new ProductException("invalid productId !");
+		}
+		else throw new CustomerException("invalid key");
+		
+		
+		
+		
+		
+		
+		
+		
+		@Override
+	public String removeProductToCart(Integer productId, String uuid) throws CustomerException, ProductException, CartException {
+
+		CurrentUserSession currentUserSession = cCustomerSessionRepo.findByUuid(uuid);
+		
+		if (currentUserSession!=null) {
+			Optional<Customer> cOptional = customerRepo.findById(currentUserSession.getCCustomerId());
+			Customer customer = cOptional.get();
+			Optional<Product> pOptional = productRepo.findById(productId);
+			
+			if (pOptional.isPresent()) {
+				Product product = pOptional.get();
+				
+//				if (product.getQuantity()>=quantity) {
+					Cart cCart = cartRepo.findByCustomer(customer);
+					
+//					if (cCart!=null) {
+						List<Product> listProducts = cCart.getProducts();
+						boolean flag = false;
+						
+							for (Product p : listProducts) {
+								if (p.getProductId()==productId) {
+									cCart.setProductQuantity(cCart.getProductQuantity()-1);
+									cartRepo.save(cCart);
+									
+									product.setQuantity(product.getQuantity()+1);
+									productRepo.save(product);
+									flag = true;
+									break;
+								}
+							}
+							if (!flag) {
+								throw new ProductException("no product added to the cart by this productId "+productId);
+							}
+					}
+					throw new ProductException("invalid productId "+productId);
+
+			
+				}
+				throw new CustomerException("invalid key");
+		}
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+

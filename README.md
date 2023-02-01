@@ -12,7 +12,9 @@ This is Rest-API for online shoping, This web service is created by Spring-Boot.
 . Swagger UI
 
 # How to run
-Install the database, set username as root, and password as root, create database ecomdb; 
+Before running the API server, you should update the database config inside the application.properties file in side spring project.
+Create database ecomdb;
+Update the port number, username and password according your database configuration.
 
     server.port=8789
 

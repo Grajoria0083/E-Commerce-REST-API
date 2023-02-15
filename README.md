@@ -11,6 +11,9 @@ This is Rest-API for online shoping, This web service is created by Spring-Boot.
 . Postman
 . Swagger UI
 
+# ER Diagram![184973861-3a0d1ef2-f9b6-44fd-9ddc-978127509434](https://user-images.githubusercontent.com/101567803/219017268-6a1b28bc-bdc7-4092-ab05-df5b0c6d4440.jpg)
+
+
 # How to run
 Before running the API server, you should update the database config inside the application.properties file in side spring project.
 Create database ecomdb;

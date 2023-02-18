@@ -1,17 +1,23 @@
 # E-Commerce-Rest-API
 This is Rest-API for online shoping, This web service is created by Spring-Boot. All the functionalities of an online shopping app such as login/signup, view products, add products to cart, remove products from cart, order and payment are avalible. All the data is connect with database.
 # Tech Stack
-   Java
-. Hibernate
-. Maven
-. Spring
-. Spring Boot
-. Spring Data JPA
-. MySQL
-. Postman
-. Swagger UI
+. Java
 
-# ER Diagram![184973861-3a0d1ef2-f9b6-44fd-9ddc-978127509434](https://user-images.githubusercontent.com/101567803/219017268-6a1b28bc-bdc7-4092-ab05-df5b0c6d4440.jpg)
+. Hibernate
+
+. Maven
+
+. Spring
+
+. Spring Boot
+
+. Spring Data JPA
+
+. MySQL
+
+. Postman
+
+. Swagger UI
 
 
 # How to run

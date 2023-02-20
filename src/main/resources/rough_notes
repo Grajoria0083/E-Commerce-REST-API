@@ -6,6 +6,7 @@ http://localhost:8789/customer/Product
     "msg": "uri=/customer/product"
 }
 
+select * from address; select * from admin; select * from curent_admin_session; select * from customer; select * from current_user_session; select * from product; select * from cart; select * from cart_cart_items; select * from cart_item; select * from order_details;
 
 select * from address; select * from admin; select * from curent_admin_session; select * from customer; select * from current_user_session; select * from product; select * from cart_item; select * from cart_cart_items; select * from order_details;
 
@@ -16,8 +17,35 @@ select * from address; select * from admin; select * from curent_admin_session; 
 
  		"name": "aman",
         "email": "aman@gmail",
-        "mobileNo": "1234567890",
-        "password": "as123",
+        "mobileNo": "7017672620",
+        "password": "amit123",
+        "wallet": "15000",
+        "address": {
+            "houseNo": "5/123",
+            "pincode": "282010",
+            "city": "agra",
+            "state": "UP",
+            "country": "india"
+        }
+        
+        "name": "gaurav",
+        "email": "gaurav@gmail",
+        "mobileNo": "7017233221",
+        "password": "gaurav123",
+        "wallet": "15000",
+        "address": {
+            "houseNo": "5/123",
+            "pincode": "282010",
+            "city": "agra",
+            "state": "UP",
+            "country": "india"
+        }
+        
+        
+        "name": "anshi",
+        "email": "anshi@gmail",
+        "mobileNo": "7351587185",
+        "password": "anshi123",
         "wallet": "15000",
         "address": {
             "houseNo": "5/123",
@@ -34,15 +62,16 @@ select * from address; select * from admin; select * from curent_admin_session; 
   "color": "black",
   "dimension": "XL",
   "manufacturer": "Nike",
-  "specification": "male",
+  "specification": "soft",
   "quantity": "12",
   "category" :{
-      "categoryName": "A2"
+      "categoryName": "A1"
   }
 
 {
         "productName": "sweater",
         "price": 210.0,
+        "color": "black",
         "dimension": "SL",
         "manufacturer": "nike",
         "specification": "male",

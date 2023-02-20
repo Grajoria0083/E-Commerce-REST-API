@@ -1,6 +1,9 @@
 package com.masai.service;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -158,6 +161,40 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 		
 		return list;
+	}
+	
+	
+	
+	
+	
+	@Override
+	public List<Product> sortProductsByPrice() throws ProductException {
+		
+		List<Product> list = productRepo.findAll();
+	
+		if (list.size()==0) {
+			throw new ProductException("No product is avalible!");
+		}
+		else {
+			Collections.sort(list, new Comparator<Product>() {
+				
+				@Override
+				public int compare(Product p1, Product p2) {
+					
+					if (p1.getPrice()>p2.getPrice()) {
+						return 1;
+					}
+					else if(p1.getPrice()<p2.getPrice()){
+						return -1;
+					}
+					else {
+						return p1.getProductName().compareTo(p2.getProductName());
+					}
+				};
+			});
+		}
+		return list;
+		
 	}
 
 
@@ -396,6 +433,9 @@ public class CustomerServiceImpl implements CustomerService{
 		throw new CustomerException("invalid uuid "+uuid);
 
 	}
+
+
+
 }
 
 

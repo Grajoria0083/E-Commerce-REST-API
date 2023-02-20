@@ -60,8 +60,8 @@ public class AdminController {
 //	Update Admin
 //	--------------
 	
-	@PutMapping("/{key}")
-	public ResponseEntity<Admin> updateAdminHandler(@Valid @RequestBody Admin admin, @PathVariable("key") String uuid) throws AdminException{
+	@PutMapping("/{uuid}")
+	public ResponseEntity<Admin> updateAdminHandler(@Valid @RequestBody Admin admin, @PathVariable("uuid") String uuid) throws AdminException{
 		
 		Admin adm = adminServiceImpl.updateAdmin(admin, uuid);
 		
@@ -80,7 +80,7 @@ public class AdminController {
 		
 		Admin adm = adminServiceImpl.getAdmin(uuid);
 		
-		return new ResponseEntity<Admin>(adm,HttpStatus.ACCEPTED);
+		return new ResponseEntity<Admin>(adm,HttpStatus.OK);
 	}
 	
 	
@@ -96,7 +96,7 @@ public class AdminController {
 		
 		Admin adm = adminServiceImpl.deleteAdmin(uuid);
 		
-		return new ResponseEntity<Admin>(adm,HttpStatus.ACCEPTED);
+		return new ResponseEntity<Admin>(adm,HttpStatus.OK);
 	}
 	
 	
@@ -111,7 +111,7 @@ public class AdminController {
 		
 		List<Customer> list = adminServiceImpl.getAllCustomers(uuid);
 		
-		return new ResponseEntity<List<Customer>>(list,HttpStatus.ACCEPTED);
+		return new ResponseEntity<List<Customer>>(list,HttpStatus.OK);
 	}
 	
 	
@@ -158,7 +158,7 @@ public class AdminController {
 		
 		List<Product> list = adminServiceImpl.viewAllproducts();
 		
-		return new ResponseEntity<List<Product>>(list,HttpStatus.ACCEPTED);
+		return new ResponseEntity<List<Product>>(list,HttpStatus.OK);
 	}
 	
 	

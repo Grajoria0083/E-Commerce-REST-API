@@ -23,6 +23,8 @@ public interface CustomerService {
 	
 	public List<Product> viewAllproducts () throws ProductException ;
 	
+	public List<Product> sortProductsByPrice () throws ProductException ;
+	
 	public String addToCart (Integer productId, Integer quantity, String uuid) throws CustomerException, ProductException, CartException;
 	
 	public Cart updateCart (Cart cart, String uuid) throws CustomerException, ProductException, CartException;

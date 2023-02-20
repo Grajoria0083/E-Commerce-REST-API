@@ -123,12 +123,12 @@ public class LoginServiceImpl implements LoginService{
 				throw new LoginException("this admin already Logged In!");
 			}
 			else {
-				String key = RandomString.make(5);
+				String uuid = RandomString.make(5);
 				
 				CurentAdminSession curentAdminSession = new CurentAdminSession();
 				curentAdminSession.setLocalDateTime(LocalDateTime.now());
 				curentAdminSession.setCAdminId(admin.getAdminId());
-				curentAdminSession.setUuid(key);
+				curentAdminSession.setUuid(uuid);
 				
 				cAdminSessionRepo.save(curentAdminSession);
 				

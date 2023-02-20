@@ -46,7 +46,7 @@ public class CustomerController {
 
 		Customer C = customerService.registerCustomer(customer);
 
-		return new ResponseEntity<Customer>(C, HttpStatus.OK);
+		return new ResponseEntity<Customer>(C, HttpStatus.ACCEPTED);
 	}
 	
 	
@@ -56,12 +56,12 @@ public class CustomerController {
 //								Update Customer
 //								-----------------
 
-	@PutMapping("/{uuid}")
-	public ResponseEntity<Customer> updateCustomerHandler(@RequestBody Customer customer, @PathVariable("uuid") String uuid) throws CustomerException {
+	@PutMapping("/{key}")
+	public ResponseEntity<Customer> updateCustomerHandler(@RequestBody Customer customer, @PathVariable("key") String key) throws CustomerException {
 		
-		Customer C = customerService.updateCustomer(customer, uuid);
+		Customer C = customerService.updateCustomer(customer, key);
 		
-		return new ResponseEntity<Customer>(C, HttpStatus.OK);
+		return new ResponseEntity<Customer>(C, HttpStatus.ACCEPTED);
 	}
 	
 	
@@ -115,6 +115,24 @@ public class CustomerController {
 	
 	
 	
+							//	 Sort Products
+							//	----------------
+
+
+	
+	@GetMapping("/sortProducts")
+	public ResponseEntity<List<Product>> getSorttedProductHandler() throws ProductException {
+
+		List<Product> products = customerService.sortProductsByPrice();
+
+		return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
+	
 //								Add Product to Cart
 //								-------------------
 	
@@ -158,7 +176,7 @@ public class CustomerController {
 		
 		Cart C = customerService.updateCart(cart, uuid);
 		
-		return new ResponseEntity<Cart>(C, HttpStatus.OK);
+		return new ResponseEntity<Cart>(C, HttpStatus.ACCEPTED);
 	}
 	
 	

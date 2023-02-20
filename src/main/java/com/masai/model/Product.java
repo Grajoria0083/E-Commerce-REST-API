@@ -25,8 +25,8 @@ public class Product {
 	@NotNull(message = "Product name is mandatory!")
 	private String productName;
 	
-	@NotBlank(message = "Price must not be blank!")
-	@NotNull(message = "Price is mandatory!")
+//	@NotBlank(message = "Price must not be blank!")
+//	@NotNull(message = "Price is mandatory!")
 	private double price;
 	
 	

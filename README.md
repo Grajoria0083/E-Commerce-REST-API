@@ -31,6 +31,9 @@ Update the port number, username and password according your database configurat
     spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
     spring.datasource.username=root
     spring.datasource.password=root
+    
+#   Deployed Link
+https://e-commerce-rest-api-production.up.railway.app/swagger-ui/#/
    
 # Swagger Documentation
 [Swagger UI API Documentation E-commerce web service.pdf](https://github.com/Grajoria0083/E-Commerce-API/files/10553814/screencapture-localhost-8789-swagger-ui-2023-02-01-10_59_44.pdf)

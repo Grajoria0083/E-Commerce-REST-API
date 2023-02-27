@@ -12,6 +12,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.ToString;
 import net.bytebuddy.implementation.bind.annotation.Empty;
@@ -51,7 +54,7 @@ public class Customer {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 	
-	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	private Cart cart;
 	

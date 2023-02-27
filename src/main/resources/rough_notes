@@ -4,6 +4,13 @@ http://localhost:8789/customer/Product
     "localDateTime": "2023-01-17T18:12:26.1319319",
     "details": "invalid uuid Product",
     "msg": "uri=/customer/product"
+    
+    
+    DB_HOST=containers-us-west-103.railway.app
+    DB_PORT=6747
+    DB_NAME=railway
+    DB_USERNAME=root
+    DB_PASSWORD=usSrXOmt97x6jBlvXzl4
 }
 
 select * from address; select * from admin; select * from curent_admin_session; select * from customer; select * from current_user_session; select * from product; select * from cart; select * from cart_cart_items; select * from cart_item; select * from order_details;

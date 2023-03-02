@@ -23,6 +23,10 @@ public class Product {
 	
 	@NotBlank(message = "Product name must not be blank!")
 	@NotNull(message = "Product name is mandatory!")
+	private String productImage;
+	
+	@NotBlank(message = "Product name must not be blank!")
+	@NotNull(message = "Product name is mandatory!")
 	private String productName;
 	
 //	@NotBlank(message = "Price must not be blank!")

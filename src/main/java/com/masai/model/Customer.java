@@ -14,6 +14,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.Data;
 import lombok.ToString;
@@ -46,6 +48,7 @@ public class Customer {
 
 	@NotNull(message = "password is mandatory!")
 	@Size(min = 6, max = 15, message = "Password length must be between 6 to 15 words!")
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	
 	private Integer wallet;

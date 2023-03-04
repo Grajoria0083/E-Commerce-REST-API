@@ -19,11 +19,15 @@ public interface CustomerService {
 	
 	public Customer getCustomer(String uuid) throws CustomerException ;
 	
+	public Product getProductById(Integer productId) throws ProductException ;
+	
+	public List<Product> getProductByName(String productName) throws ProductException ;
+	
 	public Customer deleteCustomer(String uuid) throws CustomerException ;
 	
 	public List<Product> viewAllproducts () throws ProductException ;
 	
-	public List<Product> sortProductsByPrice () throws ProductException ;
+	public List<Product> sortProductsByPrice (String type) throws ProductException ;
 	
 	public String addToCart (Integer productId, Integer quantity, String uuid) throws CustomerException, ProductException, CartException;
 	

@@ -162,7 +162,7 @@ public class AdminServiceImpl implements AdminService{
 
 
 	@Override
-	public Product deleteProduct(String productName, String key) throws ProductException {
+	public Product deleteProduct(Integer productId, String key) throws ProductException {
 
 		CurentAdminSession cAdminSession = cAdminSessionRepo.findByUuid(key);
 		
@@ -170,15 +170,13 @@ public class AdminServiceImpl implements AdminService{
 			throw new ProductException("invalid uuid: "+key);
 		}
 
-		Product p = productRepo.findByProductName(productName);
+		Optional<Product> p = productRepo.findById(productId);
 
-		if (p==null) {
-			throw new ProductException(productName+" product is not avalible!");
+		if (p.isPresent()) {
+			 productRepo.delete(p.get());
+			 return p.get();
 		}
-		
-		productRepo.delete(p);
-		
-		return p;
+		throw new ProductException(productId+" product is not avalible!");
 	}
 
 

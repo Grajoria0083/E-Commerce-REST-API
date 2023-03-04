@@ -184,12 +184,10 @@ public class AdminController {
 //	Delete Product
 //	---------------
 	
-	@DeleteMapping("product/{productName}/{uuid}")
-	public ResponseEntity<Product> deleteProductHandler(@PathVariable("productName") String productName , @PathVariable("uuid")  String uuid) throws ProductException{
+	@DeleteMapping("product/{productId}/{uuid}")
+	public ResponseEntity<Product> deleteProductHandler(@PathVariable("productId") Integer productId , @PathVariable("uuid")  String uuid) throws ProductException{
 		
-		System.out.println("controller"+ productName);
-		
-		Product p = adminServiceImpl.deleteProduct(productName, uuid);
+		Product p = adminServiceImpl.deleteProduct(productId, uuid);
 		
 		return new ResponseEntity<Product>(p,HttpStatus.ACCEPTED);
 	}

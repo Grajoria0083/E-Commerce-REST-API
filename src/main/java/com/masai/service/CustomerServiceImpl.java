@@ -168,7 +168,7 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	
 	@Override
-	public List<Product> sortProductsByPrice() throws ProductException {
+	public List<Product> sortProductsByPrice(String type) throws ProductException {
 		
 		List<Product> list = productRepo.findAll();
 	
@@ -181,15 +181,23 @@ public class CustomerServiceImpl implements CustomerService{
 				@Override
 				public int compare(Product p1, Product p2) {
 					
-					if (p1.getPrice()>p2.getPrice()) {
-						return 1;
-					}
-					else if(p1.getPrice()<p2.getPrice()){
-						return -1;
+					if(type.equals("acending")) {
+						return (int) (p1.getPrice()-p2.getPrice());
 					}
 					else {
-						return p1.getProductName().compareTo(p2.getProductName());
+						return (int) (p2.getPrice()-p1.getPrice());
 					}
+					
+					
+//					if (p1.getPrice()>p2.getPrice()) {
+//						return 1;
+//					}
+//					else if(p1.getPrice()<p2.getPrice()){
+//						return -1;
+//					}
+//					else {
+//						return p1.getProductName().compareTo(p2.getProductName());
+//					}
 				};
 			});
 		}
@@ -432,6 +440,40 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 		throw new CustomerException("invalid uuid "+uuid);
 
+	}
+
+
+
+
+
+
+	@Override
+	public Product getProductById(Integer productId) throws ProductException {
+		
+		Optional<Product> optional = productRepo.findById(productId);
+		
+		if (optional.isPresent()) {
+			return optional.get();
+		}
+		else {
+			throw new ProductException("Invalid productId !");
+		}
+	}
+
+
+
+
+
+
+	@Override
+	public List<Product> getProductByName(String productName) throws ProductException {
+		
+		List<Product> list = productRepo.findByProductName(productName);
+		
+		if (list.size()>0) {
+			return list;
+		}
+		throw new ProductException("No "+productName+" product is avalible!");
 	}
 
 

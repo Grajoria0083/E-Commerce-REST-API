@@ -27,7 +27,7 @@ public interface AdminService {
 	
 	public Product updateProduct (Product product, String key) throws ProductException;
 	
-	public Product deleteProduct (String productName, String key) throws ProductException;
+	public Product deleteProduct (Integer productId, String key) throws ProductException;
 	
 	public List<Product> viewAllproducts () throws ProductException ;
 	

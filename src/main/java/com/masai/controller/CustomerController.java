@@ -117,15 +117,49 @@ public class CustomerController {
 	
 	
 	
+//								Get Product By Id
+//								-----------------
+
+
+	@GetMapping("/product/{productId}")
+	public ResponseEntity<Product> getProductByIdHandler(@PathVariable("productId") Integer productId) throws ProductException {
+
+		Product product = customerService.getProductById(productId);
+
+		return new ResponseEntity<Product>(product, HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
+	
+	
+//								Get Product By Name
+//								-------------------
+
+
+	@GetMapping("/products/{productName}")
+	public ResponseEntity<List<Product>> getProductByNameHandler(@PathVariable String productName) throws ProductException {
+
+		List<Product> products = customerService.getProductByName(productName);
+
+		return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+	}
+
+	
+	
+	
+	
 							//	 Sort Products
 							//	----------------
 
 
 	
-	@GetMapping("/sortProducts")
-	public ResponseEntity<List<Product>> getSorttedProductHandler() throws ProductException {
+	@GetMapping("/sortProducts/{type}")
+	public ResponseEntity<List<Product>> getSorttedProductHandler(@PathVariable String type) throws ProductException {
 
-		List<Product> products = customerService.sortProductsByPrice();
+		List<Product> products = customerService.sortProductsByPrice(type);
 
 		return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
 	}
